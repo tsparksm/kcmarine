@@ -1,0 +1,26 @@
+Package: kcmarine
+Title: King County Marine Data Goodies
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Taylor",
+           family = "Martin",
+           role = c("aut", "cre"),
+           email = "taymartin@kingcounty.gov",
+           comment = c(ORCID = "0000-0002-6242-6782"))
+Description: Contains scripts to download, import, manipulate, plot, and have 
+    fun with the King County marine data. Data considered are from moorings, 
+    CTD profiles, and discrete samples. Some functions may only be available 
+    to King County employees, since some data access requires a VPN 
+    connection. Contact Taylor with any issues or requests.
+License: use_mit_license()
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: dplyr, 
+    jsonlite, 
+    lubridate, 
+    readr, 
+    stringr, 
+    tibble, 
+    XML
