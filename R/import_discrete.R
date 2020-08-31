@@ -62,7 +62,9 @@ import_discrete <- function(fname) {
   }
   temp$CollectDate <- CollectDate
 
-  CollectDateTime <- as.POSIXct(temp$CollectDateTime, format = "%Y-%m-%dT%H:%M:%SZ")
+  CollectDateTime <- as.POSIXct(temp$CollectDateTime,
+                                format = "%Y-%m-%dT%H:%M:%SZ",
+                                tz = "America/Los_Angeles")
   temp$CollectDateTime <- CollectDateTime
 
   return(temp)
