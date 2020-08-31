@@ -44,7 +44,7 @@ import_discrete <- function(fname) {
                            TextValue = readr::col_character(),
                            WorkNum = readr::col_character(),
                            CollectDate = readr::col_character(),
-                           CollectDateTime = readr::col_datetime(format = "%Y-%m-%dT%H:%M:%SZ"),
+                           CollectDateTime = readr::col_character(),
                            LabSampleNum = readr::col_character(),
                            Depth = readr::col_double(),
                            SampleParmsReleased = readr::col_logical(),
@@ -61,6 +61,9 @@ import_discrete <- function(fname) {
     CollectDate <- strptime(temp$CollectDate, "%m/%d/%Y")
   }
   temp$CollectDate <- CollectDate
+
+  CollectDateTime <- as.POSIXct(temp$CollectDateTime, format = "%Y-%m-%dT%H:%M:%SZ")
+  temp$CollectDateTime <- CollectDateTime
 
   return(temp)
 }
