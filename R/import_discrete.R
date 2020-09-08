@@ -51,8 +51,8 @@ import_discrete <- function(fname) {
                            IsMarine = readr::col_logical(),
                            Locator = readr::col_character(),
                            SiteId = readr::col_integer(),
-                           SiteTypeId = col_integer(),
-                           LimsProjectNum = col_character()
+                           SiteTypeId = readr::col_integer(),
+                           LimsProjectNum = readr::col_character()
                          ))
   options(warn=1)
 
