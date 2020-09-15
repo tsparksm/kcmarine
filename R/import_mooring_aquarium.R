@@ -128,6 +128,8 @@ import_mooring_aquarium <- function(fname) {
   temp <- tibble::add_column(temp, Qual_DO_Sat_2 = temp$Qual_2_DO,
                              .after = "DO_Sat_2")
 
+  lubridate::tz(temp$DateTime) <- "America/Los_Angeles"
+
   temp$Date <- as.Date(paste(lubridate::month(temp$DateTime), "/",
                              lubridate::day(temp$DateTime), "/",
                              lubridate::year(temp$DateTime), sep = ""),

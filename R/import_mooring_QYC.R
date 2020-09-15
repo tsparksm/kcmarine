@@ -84,6 +84,8 @@ import_mooring_QYC <- function(fname) {
   temp <- tibble::add_column(temp, Qual_DO_Sat = temp$Qual_DO,
                              .after = "DO_Sat")
 
+  lubridate::tz(temp$DateTime) <- "America/Los_Angeles"
+
   temp$Date <- as.Date(paste(lubridate::month(temp$DateTime), "/",
                              lubridate::day(temp$DateTime), "/",
                              lubridate::year(temp$DateTime), sep = ""),
