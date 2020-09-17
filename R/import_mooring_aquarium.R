@@ -1,8 +1,8 @@
 #' Import Seattle Aquarium mooring data from file
 #'
-#' Imports Seattle Aquarium mooring data from a .txt
+#' Imports Seattle Aquarium mooring data
 #'     from a .txt file. Data is expected to contain ALL the parameters
-#'     avaiable for download from the public mooring website
+#'     available for download from the public mooring website
 #'     (https://green2.kingcounty.gov/marine-buoy/). Columns and header must
 #'     be the same as the original data download. When in doubt, download a
 #'     new file! Again, make sure you download ALL the parameters. The
@@ -25,7 +25,7 @@
 #'
 #' @importFrom dplyr rename
 #'
-#' @importFrom lubridate year month day
+#' @importFrom lubridate year month day tz
 #'
 #' @import tibble
 #'

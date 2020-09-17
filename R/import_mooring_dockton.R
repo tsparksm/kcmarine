@@ -1,7 +1,7 @@
-#' Import Quartermaster Yacht Club mooring data from file
+#' Import Dockton mooring data from file
 #'
-#' Imports Quartermaster Yacht Club (QYC) mooring data
-#'     from a .txt file. Data is expected to contain ALL the parameters
+#' Imports Dockton mooring data from a .txt file.
+#'     Data is expected to contain ALL the parameters
 #'     available for download from the public mooring website
 #'     (https://green2.kingcounty.gov/marine-buoy/). Columns and header must
 #'     be the same as the original data download. When in doubt, download a
@@ -13,7 +13,7 @@
 #'     try re-downloading the data and NOT editing it in Excel prior to
 #'     loading in R. Excel messes up the datetime formatting.
 #'
-#' @usage import_mooring_QYC(fname)
+#' @usage import_mooring_dockton(fname)
 #'
 #' @param fname The filename to import, as a string
 #'
@@ -31,55 +31,60 @@
 #'
 #' @examples
 #'
-#' file <- system.file("extdata", "test_mooring_QYC_data.txt", package = "kcmarine")
-#' data <- import_mooring_QYC(file)
+#' file <- system.file("extdata", "test_mooring_dockton_data.txt", package = "kcmarine")
+#' data <- import_mooring_dockton(file)
 
-import_mooring_QYC <- function(fname) {
+import_mooring_dockton <- function(fname) {
+
   options(warn=-1)
-  temp = readr::read_tsv(fname, skip = 53, col_names = TRUE, col_types = list(
+  temp = readr::read_tsv(fname, skip = 49, col_names = TRUE, col_types = list(
     readr::col_datetime(format = "%m/%d/%Y %I:%M:%S %p"),
-    readr::col_double(), # depth
+    readr::col_double(),  # depth
     readr::col_integer(),
-    readr::col_double(), # temperature
+    readr::col_double(),  # temperature
     readr::col_integer(),
-    readr::col_double(), # salinity
+    readr::col_double(),  # salinity
     readr::col_integer(),
-    readr::col_double(), # DO %
-    readr::col_double(), # DO
+    readr::col_double(),  # DO %
+    readr::col_double(),  # DO
     readr::col_integer(),
-    readr::col_double(), # chl
+    readr::col_double(),  # chlorophyll
     readr::col_integer(),
-    readr::col_double(), # pH
+    readr::col_double(),  # turbidity
     readr::col_integer(),
-    readr::col_double(), # density
+    readr::col_double(),  # pH
     readr::col_integer(),
-    readr::col_double(), # turbidity
+    readr::col_double(),  # density
     readr::col_integer(),
-    readr::col_double(), # ext pH final
+    readr::col_double(),  # air temp
     readr::col_integer(),
-    readr::col_double(), # int pH raw
+    readr::col_double(),  # surface PAR
     readr::col_integer(),
-    readr::col_double(), # int pH recalc
+    readr::col_double(),  # air pressure
     readr::col_integer(),
-    readr::col_double(), # seafet temp
+    readr::col_double(),  # rainfall
     readr::col_integer(),
-    readr::col_double(), # ext pH recalc
+    readr::col_double(),  # humidity
     readr::col_integer(),
-    readr::col_double(), # sonde batt
-    readr::col_double(), # logger batt
-    readr::col_character(), #sonde ID
-    readr::col_double(), #int pH v
-    readr::col_double(), #ext pH V
-    readr::col_character(), #SeaFET ID
+    readr::col_double(),  # wind dir
+    readr::col_integer(),
+    readr::col_double(),  # wind speed
+    readr::col_integer(),
+    readr::col_double(),  # sonde battery
+    readr::col_double(),  # logger battery
+    readr::col_character(),  # sonde ID
     readr::col_skip()
   ))
   options(warn=1)
 
   temp <- dplyr::rename(temp, DateTime = Date)
-  temp <- dplyr::rename(temp, DO_Sat = 'Dissolved_Oxygen_%Sat')
-  temp <- dplyr::rename(temp, DO_mg_L = 'Dissolved_Oxygen_mg/L')
-  temp <- dplyr::rename(temp, Density_kg_m3 = 'Density_kg/m^3')
-  temp <- dplyr::rename(temp, Chlorophyll_Fluorescence_ug_L = 'Chlorophyll_Fluorescence_ug/L')
+  temp <- dplyr::rename(temp, DO_Sat = "Dissolved_Oxygen_%Sat")
+  temp <- dplyr::rename(temp, DO_mg_L = "Dissolved_Oxygen_mg/L")
+  temp <- dplyr::rename(temp, Chlorophyll_Fluorescence_ug_L = "Chlorophyll_Fluorescence_ug/L")
+  temp <- dplyr::rename(temp, Density_kg_m3 = "Density_kg/m^3")
+  temp <- dplyr::rename(temp, Surf_PAR_umol_s_sqm = "Surf_PAR_umol/s/sqm")
+  temp <- dplyr::rename(temp, Rel_Humidity = "Rel_Humidity_%")
+  temp <- dplyr::rename(temp, Wind_Speed_m_sec = "Wind_Speed_m/sec")
 
   temp <- tibble::add_column(temp, Qual_DO_Sat = temp$Qual_DO,
                              .after = "DO_Sat")
