@@ -60,6 +60,7 @@ import_discrete <- function(fname) {
   if (is.na(CollectDate[1])) {
     CollectDate <- strptime(temp$CollectDate, "%m/%d/%Y")
   }
+  CollectDate <- as.POSIXct(CollectDate)
   temp$CollectDate <- CollectDate
 
   CollectDateTime <- as.POSIXct(temp$CollectDateTime,
