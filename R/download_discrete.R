@@ -7,7 +7,7 @@
 #'     Automatically removes bad and missing data with qualifier codes 4 or 9.
 #'     Based on code by Curtis DeGasperi.
 #'
-#' @usage download_discrete(sites, parms_in, fname)
+#' @usage download_discrete(sites, parms_in, fname, include_bad = F)
 #'
 #' @param sites a character vector with locator codes for stations. These
 #'     stations are the ones for which data will be downloaded.
@@ -19,6 +19,9 @@
 #' @param fname a string indicating the filename where the data will be saved.
 #'     The filename is relative to the current working directory,
 #'     \code{getwd()}.
+#'
+#' @param include_bad a logical value indicating whether to include the bad
+#'     and missing data. Automatically set to FALSE.
 #'
 #' @export
 #'
@@ -38,9 +41,9 @@
 #' parms_in <- c("NNN", "DO")
 #' fname <- "my_discrete_data.csv"
 #'
-#' \dontrun{download_discrete(sites, parms_in, fname)}
+#' \dontrun{download_discrete(sites, parms_in, fname, include_bad = T)}
 
-download_discrete <- function(sites, parms_in, fname) {
+download_discrete <- function(sites, parms_in, fname, include_bad = F) {
   # Only download marine data, site type 2
   siteType <- 2
 
@@ -95,10 +98,12 @@ download_discrete <- function(sites, parms_in, fname) {
   data$Value <- with(data, ifelse(is.na(OverrideValue),
                                   Value, OverrideValue))
 
-  # Remove bad (9) or missing (4) data
-  nt <- nrow(data)
-  data <- dplyr::filter(data, !QualityId %in% c(4, 9))
-  print(paste("Bad or missing data points removed:", nt - nrow(data)))
+  # Remove bad (9) or missing (4) data if include_bad is FALSE
+  if (!include_bad) {
+    nt <- nrow(data)
+    data <- dplyr::filter(data, !QualityId %in% c(4, 9))
+    print(paste("Bad or missing data points removed:", nt - nrow(data)))
+  }
 
   # Save data to a .csv file
   readr::write_csv(data, fname, na = "NA")

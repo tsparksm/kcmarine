@@ -4,7 +4,7 @@
 \alias{download_discrete}
 \title{Download discrete marine data from the Monitoring Portal}
 \usage{
-download_discrete(sites, parms_in, fname)
+download_discrete(sites, parms_in, fname, include_bad = F)
 }
 \arguments{
 \item{sites}{a character vector with locator codes for stations. These
@@ -17,6 +17,9 @@ into this package, for a complete list.}
 \item{fname}{a string indicating the filename where the data will be saved.
 The filename is relative to the current working directory,
 \code{getwd()}.}
+
+\item{include_bad}{a logical value indicating whether to include the bad
+and missing data. Automatically set to FALSE.}
 }
 \description{
 King County VPN connection required! This function allows you to easily
@@ -32,5 +35,5 @@ sites <- c("NSEX01", "JSUR01", "LSNT01")
 parms_in <- c("NNN", "DO")
 fname <- "my_discrete_data.csv"
 
-\dontrun{download_discrete(sites, parms_in, fname)}
+\dontrun{download_discrete(sites, parms_in, fname, include_bad = T)}
 }
