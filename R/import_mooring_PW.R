@@ -54,7 +54,9 @@ import_mooring_PW <- function(fname) {
     readr::col_integer(),
     readr::col_double(),  # pH
     readr::col_integer(),
-    readr::col_double(),  # N raw
+    readr::col_double(),  # N raw raw
+    readr::col_integer(),
+    readr::col_double(),  # N raw final,
     readr::col_integer(),
     readr::col_double(),  # N final
     readr::col_integer(),
@@ -98,8 +100,10 @@ import_mooring_PW <- function(fname) {
   temp <- dplyr::rename(temp, Surf_PAR_umol_s_sqm = "Surf_PAR_umol/s/sqm")
   temp <- dplyr::rename(temp, Rel_Humidity = "Rel_Humidity_%")
   temp <- dplyr::rename(temp, Wind_Speed_m_sec = "Wind_Speed_m/sec")
-  temp <- rename(temp, SUNA_N_mg_L_raw = 'SUNA_Nitrite+Nitrate_mgN/L_raw')
-  temp <- rename(temp, Qual_SUNA_N_mg_L_raw = 'Qual_SUNA_Nitrite+Nitrate_mgN/L_raw')
+  temp <- rename(temp, SUNA_N_mg_L_raw_raw = 'SUNA_Nitrite+Nitrate_mgN/L_raw_raw')
+  temp <- rename(temp, Qual_SUNA_N_mg_L_raw_raw = 'Qual_SUNA_Nitrite+Nitrate_mgN/L_raw_raw')
+  temp <- rename(temp, SUNA_N_mg_L_raw_final = 'SUNA_Nitrite+Nitrate_mgN/L_raw_final')
+  temp <- rename(temp, Qual_SUNA_N_mg_L_raw_final = 'Qual_SUNA_Nitrite+Nitrate_mgN/L_raw_final')
   temp <- rename(temp, SUNA_N_mg_L_final = 'SUNA_Nitrite+Nitrate_mgN/L_final')
   temp <- rename(temp, Qual_SUNA_N_mg_L_final = 'Qual_SUNA_Nitrite+Nitrate_mgN/L_final')
 
