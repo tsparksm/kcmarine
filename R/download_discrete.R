@@ -44,11 +44,11 @@
 #' \dontrun{download_discrete(sites, parms_in, fname, include_bad = T)}
 
 download_discrete <- function(sites, parms_in, fname, include_bad = F) {
-  # Only download marine data, site type 2
-  siteType <- 2
+  # Only download marine data, site type 254
+  siteType <- 254
 
   # Load site data (e.g. latitude, longitude)
-  off.webpage <- "http://dnrp-apps2/Monitoring-Portal/Sites?SiteType=2&pageSize=1000"
+  off.webpage <- paste0("http://dnrp-apps2/Monitoring-Portal/Sites?SiteType=", siteType, "&pageSize=1000")
   off.sites <- XML::readHTMLTable(readLines(off.webpage),
                                   stringsAsFactors = FALSE)[[1]]
   colnames(off.sites)=c("Details","SiteID","SiteName","Locator","Latitude",
