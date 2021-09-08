@@ -2,6 +2,7 @@
 
 export(download_discrete)
 export(import_CTD)
+export(import_CTD_composite)
 export(import_discrete)
 export(import_mooring_PW)
 export(import_mooring_QYC)
