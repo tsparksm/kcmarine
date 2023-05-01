@@ -47,9 +47,15 @@ download_discrete <- function(sites, parms_in, fname, include_bad = F) {
   # Only download marine data, site type 254
   siteType <- 254
 
+  user <- getPass::getPass(msg='Enter user ID')
+  pw <- getPass::getPass(msg='Enter password')
+
   # Load site data (e.g. latitude, longitude)
-  off.webpage <- paste0("http://dnrp-apps2/Monitoring-Portal/Sites?SiteType=", siteType, "&pageSize=1000")
-  off.sites <- XML::readHTMLTable(readLines(off.webpage),
+  off.webpage <- paste0("http://dnrp-apps2/Monitoring-Portal/Sites?SiteType=",
+                        siteType,
+                        "&pageSize=1000")
+  tt <- RCurl::getURL(off.webpage, userpwd = paste(user, pw, sep = ":"))
+  off.sites <- XML::readHTMLTable(tt,
                                   stringsAsFactors = FALSE)[[1]]
   colnames(off.sites)=c("Details","SiteID","SiteName","Locator","Latitude",
                         "Longitude","Shallow","SiteType","Area")
@@ -74,7 +80,8 @@ download_discrete <- function(sites, parms_in, fname, include_bad = F) {
       option1<-paste0('http://dnrp-apps2/Monitoring-Portal/ReviewServices/SampleParms?MinDate=',
                       MinDate, "&MaxDate=", MaxDate, '&Parm=', parm,
                       '&Site=', loc, '&SiteType=', siteType, '&RowLimit=100000')
-      data1 <- jsonlite::fromJSON(readLines(option1, warn = F))
+      tt <- RCurl::getURL(option1, userpwd = paste(user, pw, sep = ":"))
+      data1 <- jsonlite::fromJSON(tt)
       data <- rbind(data, data1)
       Location <- subset(off.sites, off.sites$SiteID==loc)
       Parameter <- subset(parameters, parameters$ParmID==parm)
