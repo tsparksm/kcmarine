@@ -43,7 +43,7 @@
 #'
 #' \dontrun{download_discrete(sites, parms_in, fname, include_bad = T)}
 
-download_discrete_test <- function(sites, parms_in, fname, include_bad = F) {
+download_discrete <- function(sites, parms_in, fname, include_bad = F) {
   # Only download marine data, site type 254
   siteType <- 254
 
