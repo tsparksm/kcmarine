@@ -37,5 +37,5 @@ check_mooring <- function(quals) {
   qual <- ifelse(first_digits < 3,
                  TRUE, FALSE)
 
-  return(good_qual)
+  return(qual)
 }
