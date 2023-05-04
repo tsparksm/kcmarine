@@ -23,4 +23,6 @@ Imports: dplyr,
     readr, 
     stringr, 
     tibble, 
-    XML
+    XML, 
+    RCurl, 
+    getPass
