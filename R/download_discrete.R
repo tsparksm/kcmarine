@@ -107,7 +107,8 @@ download_discrete <- function(sites, parms_in, fname, include_bad = F) {
   data$CollectDateTime<-gsub('/Date\\(','',data$CollectDateTime)
   data$CollectDateTime<-gsub(')/','',data$CollectDateTime)
   data$CollectDateTime<-as.POSIXct(as.numeric(data$CollectDateTime)/1000,
-                                   origin="1970-01-01")
+                                   origin="1970-01-01",
+                                   tz = "America/Los_Angeles")
 
   # Replace values with override values
   data$Value <- with(data, ifelse(is.na(OverrideValue),
