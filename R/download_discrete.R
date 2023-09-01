@@ -109,6 +109,7 @@ download_discrete <- function(sites, parms_in, fname, include_bad = F) {
   data$CollectDateTime<-as.POSIXct(as.numeric(data$CollectDateTime)/1000,
                                    origin="1970-01-01",
                                    tz = "America/Los_Angeles")
+  data$CollectDateTime <- as.character(data$CollectDateTime)
 
   # Replace values with override values
   data$Value <- with(data, ifelse(is.na(OverrideValue),
